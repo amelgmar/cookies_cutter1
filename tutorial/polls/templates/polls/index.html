@@ -1,0 +1,23 @@
+{% extends 'polls/base.html' %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+{% block content %}
+{% if latest_question_list %}
+    <ul>
+    {% for question in latest_question_list %}
+        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+        <form method="POST" action = "{% url 'polls:deleteQuestion' pk=question.pk %}">{% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">delete Question</button>
+        </form>
+
+        <a class="btn btn-default" href="{% url 'polls:listChoice' pk=question.pk %}"><span class="glyphicon glyphicon-pencil">choices list</span></a>
+        <a class="btn btn-default" href="{% url 'polls:editQuestion' pk=question.pk %}"><span class="glyphicon glyphicon-pencil">Edit question</span></a>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+{% endblock %}

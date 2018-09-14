@@ -1,0 +1,18 @@
+{% extends 'polls/base.html' %}
+{% block content %}
+
+    <h1>{{ question.question_text }}</h1>
+
+    {% for choice in question.choice_set.all %}
+        <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+
+        <form action="{% url 'polls:deleteChoice' choice.id %}" method="post">
+            <input type="submit" value="delete">
+            {% csrf_token %}
+        </form>
+
+        {% include 'polls/buttonchoicedit.html'  with c=choice %}
+        <br>
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'polls/base.html' %}
+
+{% block content %}
+    {% if new == True%}
+    <h1>Add choice</h1>
+    {% else %}
+     <h1>Edit choice</h1>
+    {% endif%}
+    {{ form.errors }}
+    <form method="POST">{% csrf_token %}
+        {{ form.as_p}}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+{% endblock %}

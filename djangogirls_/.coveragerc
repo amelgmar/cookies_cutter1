@@ -1,0 +1,5 @@
+[run]
+include = djangogirls_/*
+omit = *migrations*, *tests*
+plugins =
+    django_coverage_plugin
